@@ -1,3 +1,4 @@
+import "./App.css";
 import React, { useMemo, useState } from "react";
 import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { buildSections } from "./data/guideData";
