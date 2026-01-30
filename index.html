@@ -1,24 +1,12 @@
-<script>
-  (function () {
-    const url = new URL(window.location.href);
-    const p = url.searchParams.get("p");
-    if (!p) return;
-
-    // Restore original path
-    const restoredPath = decodeURIComponent(p);
-
-    // Restore original query/hash (optional)
-    const q = url.searchParams.get("q");
-    const h = url.searchParams.get("h");
-
-    // Remove redirect params so refresh doesn't re-run restore
-    url.searchParams.delete("p");
-    url.searchParams.delete("q");
-    url.searchParams.delete("h");
-
-    const restoredQuery = q ? "?" + decodeURIComponent(q) : (url.search ? "?" + url.searchParams.toString() : "");
-    const restoredHash = h ? "#" + decodeURIComponent(h) : url.hash;
-
-    window.history.replaceState(null, "", restoredPath + restoredQuery + restoredHash);
-  })();
-</script>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DMM Checklist</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
