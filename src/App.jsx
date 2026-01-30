@@ -82,9 +82,19 @@ export default function App() {
           </div>
 
           <div className="topbar__right">
-            <button className="btn btn--ghost" onClick={() => completeAllVisible(isStartGuide ? ["ranged-start","magic-start","moneymaking-start"] : ["starting-gear","multipliers","autocompleted-quests","useful-early-sigils"])}>
+            <button
+              className="btn btn--ghost"
+              onClick={() =>
+                completeAllVisible(
+                  isStartGuide
+                    ? ["ranged-start", "magic-start", "moneymaking-start", "melee-start"]
+                    : ["starting-gear", "multipliers", "autocompleted-quests", "useful-early-sigils"]
+                )
+              }
+            >
               Complete visible
             </button>
+
             <button className="btn btn--ghost" onClick={clearAll}>
               Reset all
             </button>
@@ -94,6 +104,12 @@ export default function App() {
         <nav className="nav">
           <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/">
             Home
+            </NavLink>
+            <NavLink
+            className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
+            to="/start/melee"
+          >
+            Melee Start
           </NavLink>
           <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/start/ranged">
             Ranged start

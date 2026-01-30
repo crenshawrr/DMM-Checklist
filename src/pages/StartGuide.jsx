@@ -9,16 +9,17 @@ export default function StartGuide({ sections, completed, setCompleted, query, s
     if (mode === "ranged") return "ranged-start";
     if (mode === "magic") return "magic-start";
     if (mode === "moneymaking") return "moneymaking-start";
-    return "ranged-start";
+    if (mode === "melee") return "melee-start";
+    return null; // don't silently fall back
   }, [mode]);
 
-  const section = sections.find((s) => s.id === sectionId);
+  const section = sectionId ? sections.find((s) => s.id === sectionId) : null;
 
   if (!section) {
     return (
       <div className="card">
         <h2>Not found</h2>
-        <p>Unknown start mode.</p>
+        <p>Unknown start mode: <code>{mode}</code></p>
       </div>
     );
   }
