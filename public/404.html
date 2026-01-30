@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting…</title>
+    <script>
+      // GitHub Pages SPA redirect for project sites (no infinite loops)
+      // If we already have ?p=, we're already redirected — do nothing.
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        if (params.has("p")) return;
+
+        var repo = "DMM-Checklist"; // MUST match your repo name (case-sensitive)
+        var path = window.location.pathname;
+
+        // Ensure we are inside /DMM-Checklist/; if not, send to it.
+        if (!path.startsWith("/" + repo + "/")) {
+          window.location.replace("/" + repo + "/");
+          return;
+        }
+
+        // Keep only the part after /DMM-Checklist
+        var rest = path.slice(("/" + repo).length); // includes leading "/"
+        if (!rest) rest = "/";
+
+        // Preserve existing search/hash (but do NOT recursively encode them)
+        var newUrl =
+          "/" + repo + "/?p=" + encodeURIComponent(rest) +
+          (window.location.search ? "&q=" + encodeURIComponent(window.location.search.slice(1)) : "") +
+          (window.location.hash ? "&h=" + encodeURIComponent(window.location.hash.slice(1)) : "");
+
+        window.location.replace(newUrl);
+      })();
+    </script>
+  </head>
+  <body></body>
+</htm

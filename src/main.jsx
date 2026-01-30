@@ -5,9 +5,7 @@ import App from "./App.jsx";
 import "./styles/App.css"; // or your actual css file name/case
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </React.StrictMode>
+<BrowserRouter basename={import.meta.env.BASE_URL}>
+  <App />
+</BrowserRouter>
 );

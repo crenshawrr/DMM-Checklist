@@ -1,8 +1,24 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Redirecting…</title>   
-  </head>
-  <body></body>
-</html>
+<script>
+  (function () {
+    const url = new URL(window.location.href);
+    const p = url.searchParams.get("p");
+    if (!p) return;
+
+    // Restore original path
+    const restoredPath = decodeURIComponent(p);
+
+    // Restore original query/hash (optional)
+    const q = url.searchParams.get("q");
+    const h = url.searchParams.get("h");
+
+    // Remove redirect params so refresh doesn't re-run restore
+    url.searchParams.delete("p");
+    url.searchParams.delete("q");
+    url.searchParams.delete("h");
+
+    const restoredQuery = q ? "?" + decodeURIComponent(q) : (url.search ? "?" + url.searchParams.toString() : "");
+    const restoredHash = h ? "#" + decodeURIComponent(h) : url.hash;
+
+    window.history.replaceState(null, "", restoredPath + restoredQuery + restoredHash);
+  })();
+</script>
