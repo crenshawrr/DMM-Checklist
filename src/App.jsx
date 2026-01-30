@@ -157,10 +157,6 @@ export default function App() {
               }
             />
           </Routes>
-
-          <footer className="footer">
-            Tip: Change the storage key in <code>usePersistedState()</code> if you want separate saves per build.
-          </footer>
         </main>
       </div>
     </div>

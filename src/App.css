@@ -8,16 +8,26 @@ body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   background:
-    radial-gradient(1200px 700px at 20% 10%, rgba(255,255,255,0.10), transparent 55%),
-    radial-gradient(900px 650px at 90% 20%, rgba(255,255,255,0.08), transparent 60%),
+    radial-gradient(1200px 700px at 30% 10%, rgba(255,255,255,0.10), transparent 55%),
+    radial-gradient(900px 650px at 70% 20%, rgba(255,255,255,0.08), transparent 60%),
     linear-gradient(180deg, rgba(22,22,24,1), rgba(12,12,14,1));
   color: rgba(255,255,255,0.92);
 }
 
 code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 8px; }
 
-.app { min-height: 100vh; padding: 18px; }
-.shell { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.app {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.shell {
+  width: min(1200px, 100%);
+  padding: 24px;
+}
+
 
 .topbar {
   border-radius: 18px;
