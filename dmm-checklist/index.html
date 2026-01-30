@@ -1,6 +1,18 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const p = params.get("p");
+      if (p) {
+        const q = params.get("q") ? "?" + decodeURIComponent(params.get("q")) : "";
+        const h = params.get("h") ? "#" + decodeURIComponent(params.get("h")) : "";
+        window.history.replaceState(null, "", p + q + h);
+      }
+    })();
+  </script>
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
