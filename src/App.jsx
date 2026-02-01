@@ -8,8 +8,17 @@ import Home from "./pages/Home";
 import StartGuide from "./pages/StartGuide";
 import Reference from "./pages/Reference";
 import SkillDiaries from "./pages/SkillDiaries";
+import Maintenance from "./pages/maintenance"; // <-- add this
 
 export default function App() {
+  // Vite env var (must start with VITE_)
+  const maintenanceOn = import.meta.env.VITE_MAINTENANCE_MODE === "true";
+
+  // If enabled, short-circuit the entire app UI
+  if (maintenanceOn) {
+    return <Maintenance />;
+  }
+
   const sections = useMemo(() => buildSections(), []);
   const [completed, setCompleted] = usePersistedState("dmm_guide_checklist_v1", {});
   const [query, setQuery] = useState("");

@@ -1,4 +1,6 @@
-export default function MaintenancePage() {
+import React from "react";
+
+export default function Maintenance() {
   return (
     <main
       style={{
@@ -8,8 +10,7 @@ export default function MaintenancePage() {
         background: "#0b0f19",
         color: "#e6e8ee",
         padding: 24,
-        fontFamily:
-          "system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif",
+        fontFamily: "system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif",
       }}
     >
       <div
@@ -23,12 +24,12 @@ export default function MaintenancePage() {
           boxShadow: "0 20px 60px rgba(0,0,0,.35)",
         }}
       >
-        <h1 style={{ margin: "0 0 12px", fontSize: 28 }}>🛠️ Maintenance</h1>
+        <h1 style={{ margin: "0 0 12px", fontSize: 28 }}>🛠️ Maintenance Mode</h1>
         <p style={{ margin: "0 0 8px", color: "#b8c0d6", lineHeight: 1.5 }}>
-          This site is temporarily unavailable while we deploy updates.
+          We’re deploying updates right now.
         </p>
         <p style={{ margin: 0, color: "#b8c0d6", lineHeight: 1.5 }}>
-          Try again in a few minutes.
+          Please check back soon.
         </p>
       </div>
     </main>

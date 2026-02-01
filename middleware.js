@@ -1,34 +1,34 @@
-import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 const MAINTENANCE_PATH = "/maintenance";
 
-function isPublicAsset(pathname: string) {
-  // Allow Next.js internal assets + common public files
+function isPublicAsset(pathname) {
+  // Next.js internal assets
   if (pathname.startsWith("/_next/")) return true;
+
+  // Common public files
   if (pathname === "/favicon.ico") return true;
   if (pathname === "/robots.txt") return true;
   if (pathname === "/sitemap.xml") return true;
 
-  // If you have images/css in /public and want them to load on the maintenance page,
-  // you can allow common extensions:
+  // Allow typical static assets (so your maintenance page can load images/fonts)
   return /\.(png|jpg|jpeg|gif|webp|svg|ico|css|js|map|txt|woff|woff2|ttf)$/i.test(
     pathname
   );
 }
 
-export function middleware(req: NextRequest) {
+export function middleware(req) {
   const { pathname } = req.nextUrl;
 
-  // Toggle via env var
+  // Toggle with env var
   const maintenanceOn = process.env.MAINTENANCE_MODE === "true";
   if (!maintenanceOn) return NextResponse.next();
 
-  // Let the maintenance page and assets load
+  // Allow the maintenance route itself + assets
   if (pathname === MAINTENANCE_PATH) return NextResponse.next();
   if (isPublicAsset(pathname)) return NextResponse.next();
 
-  // Return 503 maintenance HTML
+  // 503 maintenance response
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -44,7 +44,6 @@ export function middleware(req: NextRequest) {
     p{margin:0 0 8px;line-height:1.5;color:#b8c0d6}
     .hint{margin-top:18px;font-size:13px;color:#8f9ab6}
     .code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
-    a{color:#8ab4ff}
   </style>
 </head>
 <body>
@@ -66,7 +65,7 @@ export function middleware(req: NextRequest) {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "no-store",
-      // Optional: "Retry-After": "300", // seconds
+      // "Retry-After": "300",
     },
   });
 }
