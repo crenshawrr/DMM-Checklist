@@ -1,3 +1,4 @@
+// api/hiscore.js
 export default async function handler(req, res) {
   // CORS preflight
   if (req.method === "OPTIONS") {
@@ -8,21 +9,39 @@ export default async function handler(req, res) {
   }
 
   const player = (req.query.player || "").trim();
+  const typeRaw = (req.query.type || "STANDARD").trim().toUpperCase();
+
   if (!player) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     return res.status(400).send("Missing ?player=");
   }
 
+  // Map friendly types -> hiscore endpoints
+  // Standard: /m=hiscore_oldschool/
+  // Ironman / Hardcore / Ultimate: /m=hiscore_oldschool_ironman|.../
+  // Deadman: /m=hiscore_oldschool_deadman/
+  // Seasonal: /m=hiscore_oldschool_seasonal/
+  const TYPE_TO_PATH = {
+    STANDARD: "hiscore_oldschool",
+    IRONMAN: "hiscore_oldschool_ironman",
+    HARDCORE_IRONMAN: "hiscore_oldschool_hardcore_ironman",
+    ULTIMATE_IRONMAN: "hiscore_oldschool_ultimate",
+    DEADMAN: "hiscore_oldschool_deadman",
+    SEASONAL: "hiscore_oldschool_seasonal",
+  };
+
+  const modePath = TYPE_TO_PATH[typeRaw] || TYPE_TO_PATH.STANDARD;
+
   const upstream =
-    "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" +
+    `https://secure.runescape.com/m=${modePath}/index_lite.ws?player=` +
     encodeURIComponent(player);
 
   try {
     const r = await fetch(upstream, {
       headers: {
         "User-Agent": "Mozilla/5.0 (osrs-hiscore-proxy)",
-        Accept: "text/plain,*/*"
-      }
+        Accept: "text/plain,*/*",
+      },
     });
 
     const text = await r.text();
