@@ -1,41 +1,44 @@
+// src/data/guideData.js
 import { slug } from "../utils/text";
+import { skillDiarySections } from "./skillDiarySections.generated";
 
 export function buildSections() {
   const sections = [
     {
-    id: "melee-start",
-    title: "Melee route",
-    items: [
-      { text: "Spawn grand tree", points: 190 },
-      { text: "Do 1 lap of gnome stronghold (lv 10 agil, jump start litheness)", points: 45 },
-      { text: "Spirit tree GE", points: 25 },
-      { text: "Spirit tree Gnome", points: 25 },
-      { text: "Spirit tree GE" },
-      { text: "Withdraw 25 coins, 5 more food from bank" },
-      { text: "Unlock/activate Litheness, Claim AND ATTUNE Formidable Fighter (Equipment tab, top left)" },
-      { text: "Fairy ring to BIS AIR ALS DIS", points: 100 },
-      { text: "Fairy ring BLR to legends guild" },
-      { text: "Run west to ardy east bank" },
-      { text: "Unlock Consistency relic, activate in bank and deposit" },
-      { text: "Run south of ardy zoo" },
-      { text: "Complete Fight Arena with starter staff, use quest helper" },
-      { text: "Run north of ardy, pickpocket Warriors for 40 thieving" },
-      { text: "Chronicle tele" },
-      { text: "Run through varrock, attune Deception" },
-      { text: "Run to varlamore quetzal" },
-      { text: "Run to southern central Varlamore gate" },
-      { text: "Pickpocket Guard at gate for 50 thieving" },
-      { text: "Pickpocket Wealthy citizens for ~25-30k gp" },
-      { text: "Chronicle tele" },
-      { text: "Run to GE, buy rune sword or longsword (sword is better DPS/cheaper)" },
-      { text: "Check points, unlock Deft strikes if possible" },
-      { text: "Fairy ring to rock/sand crabs for remaining protection" },
-      { text: "AJP, run south to sand crabs" },
-      { text: "AKR, run south to sand crabs" },
-      { text: "DKS, run west to rock crabs" },
-      { text: "Still have museum lamps" },
-    ],
-  },
+      id: "melee-start",
+      title: "Melee route",
+      items: [
+        { text: "Spawn grand tree", points: 190 },
+        { text: "Do 1 lap of gnome stronghold (lv 10 agil, jump start litheness)", points: 45 },
+        { text: "Spirit tree GE", points: 25 },
+        { text: "Spirit tree Gnome", points: 25 },
+        { text: "Spirit tree GE" },
+        { text: "Withdraw 25 coins, 5 more food from bank" },
+        { text: "Unlock/activate Litheness, Claim AND ATTUNE Formidable Fighter (Equipment tab, top left)" },
+        { text: "Fairy ring to BIS AIR ALS DIS", points: 100 },
+        { text: "Fairy ring BLR to legends guild" },
+        { text: "Run west to ardy east bank" },
+        { text: "Unlock Consistency relic, activate in bank and deposit" },
+        { text: "Run south of ardy zoo" },
+        { text: "Complete Fight Arena with starter staff, use quest helper" },
+        { text: "Run north of ardy, pickpocket Warriors for 40 thieving" },
+        { text: "Chronicle tele" },
+        { text: "Run through varrock, attune Deception" },
+        { text: "Run to varlamore quetzal" },
+        { text: "Run to southern central Varlamore gate" },
+        { text: "Pickpocket Guard at gate for 50 thieving" },
+        { text: "Pickpocket Wealthy citizens for ~25-30k gp" },
+        { text: "Chronicle tele" },
+        { text: "Run to GE, buy rune sword or longsword (sword is better DPS/cheaper)" },
+        { text: "Check points, unlock Deft strikes if possible" },
+        { text: "Fairy ring to rock/sand crabs for remaining protection" },
+        { text: "AJP, run south to sand crabs" },
+        { text: "AKR, run south to sand crabs" },
+        { text: "DKS, run west to rock crabs" },
+        { text: "Still have museum lamps" }
+      ],
+    },
+
     {
       id: "ranged-start",
       title: "Ranged start: Green dragons / Zombie pirates",
@@ -65,11 +68,12 @@ export function buildSections() {
         {
           text:
             "If too crowded, consider leaving for: Wilderness slayer (complete varrock museum before Krystilia task)",
-          indent: 1,
+          indent: 1
         },
-        { text: "If too crowded, consider leaving for: Green/Blue dragons", indent: 1 },
+        { text: "If too crowded, consider leaving for: Green/Blue dragons", indent: 1 }
       ],
     },
+
     {
       id: "magic-start",
       title: "Magic start",
@@ -86,7 +90,7 @@ export function buildSections() {
         { text: "Run to stronghold of security (hit things as you run for extra exp, early DMM points are good)" },
         { text: "Complete 3 floors for 10k gp (check first floor portal, it may work)", points: 15 },
         { text: "Chronicle tele after 10k gp" },
-        { text: "Run to varrock" },
+        { text: "Run to varrock" }
       ],
       subsections: [
         {
@@ -99,7 +103,7 @@ export function buildSections() {
             { text: "Locations (Lava): Lava drag isle", indent: 1 },
             { text: "Fire giants: 100% Water weakness. Faster mage levels, less loot. Loot rune scim, fire bstaff, rune arrows to sell on GE." },
             { text: "Locations (Fire): Isle of souls dungeon (BJP, run southeast), Waterfall dungeon, Karuulm slayer dungeon, Giants' den, Deep wilderness dungeon", indent: 1 },
-            { text: "Ice giants: 100% Fire weakness. Faster mage levels, nearly no loot, low competition. Keep addy/mith drops to sell on GE or alch." },
+            { text: "Ice giants: 100% Fire weakness. Faster mage levels, nearly no loot, low competition. Keep addy/mith drops to sell on GE or alch." }
           ],
         },
         {
@@ -109,16 +113,17 @@ export function buildSections() {
             { text: "Buy staff from varrock based on your next step. Air always good. Water if going blue/lava/fire giants. Fire if going Ice giants." },
             {
               text:
-                "Buy 800 mind runes, 500 air OR fire OR water runes from rune shop, based on which staff you bought (If you're going to an NPC with water weakness, buy Air staff + mind/water runes, or Water staff + mind/air runes)",
+                "Buy 800 mind runes, 500 air OR fire OR water runes from rune shop, based on which staff you bought (If you're going to an NPC with water weakness, buy Air staff + mind/water runes, or Water staff + mind/air runes)"
             },
             { text: "Unlock consistency, deft strikes at East bank" },
             { text: "Move to your chosen training location and stay until protection runs out. Give yourself time to get to a safe zone. If you went to dragons, consider going to wildy altar for 43 prayer before protection." },
             { text: "If you finish 60 mage, complete mage arena with safespot method, alch staff for 48k gp." },
-            { text: "Go to Varrock museum, claim 2 lamps and use on skills of your choosing." },
+            { text: "Go to Varrock museum, claim 2 lamps and use on skills of your choosing." }
           ],
-        },
+        }
       ],
     },
+
     {
       id: "moneymaking-start",
       title: "Moneymaking start",
@@ -133,9 +138,10 @@ export function buildSections() {
         { text: "Pickpocket Guard at gate for 50 thieving" },
         { text: "Pickpocket Wealthy citizens for the remaining hour of protection" },
         { text: "(~190k+ gp, ~80 Thieving, +550 points)", indent: 1 },
-        { text: "Bank GP before protection runs out" },
+        { text: "Bank GP before protection runs out" }
       ],
     },
+
     {
       id: "starting-gear",
       title: "Starting gear",
@@ -145,9 +151,10 @@ export function buildSections() {
         { text: "A looting bag" },
         { text: "A Starter sword, Starter bow, and Starter staff" },
         { text: "A Deadman's Chest, Deadman's legs, and Starter Cape" },
-        { text: "A dramen staff" },
+        { text: "A dramen staff" }
       ],
     },
+
     {
       id: "multipliers",
       title: "Multipliers",
@@ -155,9 +162,10 @@ export function buildSections() {
         { text: "3–60: 10x Combat xp, 10x Skilling xp, 3x Drop rate" },
         { text: "61–80: 15x Combat xp, 10x Skilling xp, 3x Drop rate" },
         { text: "81–95: 15x Combat xp, 10x Skilling xp, 4x Drop rate" },
-        { text: "96–126: 20x Combat xp, 10x Skilling xp, 5x Drop rate" },
+        { text: "96–126: 20x Combat xp, 10x Skilling xp, 5x Drop rate" }
       ],
     },
+
     {
       id: "autocompleted-quests",
       title: "Autocompleted quests",
@@ -193,9 +201,10 @@ export function buildSections() {
         { text: "Vampyre Slayer" },
         { text: "Waterfall Quest" },
         { text: "Witch's House" },
-        { text: "X Marks the Spot" },
+        { text: "X Marks the Spot" }
       ],
     },
+
     {
       id: "useful-early-sigils",
       title: "Useful early sigils",
@@ -211,21 +220,24 @@ export function buildSections() {
         { text: "500 Restoration - bloodfury (10% damage dealt back)" },
         { text: "100 Deft strikes - 30% more accuracy against NPCs" },
         { text: "100 Resistance? - Monster damage reduced by 25%" },
-        { text: "500 Nature - Choose contracts, farm patches grow instantly" },
+        { text: "500 Nature - Choose contracts, farm patches grow instantly" }
       ],
     },
+
+    // Append ALL skills (23 sections) generated from the wiki table
+    ...skillDiarySections,
   ];
 
   // Attach stable ids to each checkbox item
   return sections.map((sec) => ({
     ...sec,
-    items: sec.items.map((it, idx) => ({
+    items: (sec.items || []).map((it, idx) => ({
       ...it,
       _id: `${sec.id}__${String(idx).padStart(3, "0")}__${slug(it.text).slice(0, 60)}`,
     })),
     subsections: (sec.subsections || []).map((sub) => ({
       ...sub,
-      items: sub.items.map((it, idx) => ({
+      items: (sub.items || []).map((it, idx) => ({
         ...it,
         _id: `${sec.id}__${sub.id}__${String(idx).padStart(3, "0")}__${slug(it.text).slice(0, 60)}`,
       })),

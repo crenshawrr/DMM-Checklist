@@ -7,6 +7,7 @@ import { usePersistedState } from "./utils/storage";
 import Home from "./pages/Home";
 import StartGuide from "./pages/StartGuide";
 import Reference from "./pages/Reference";
+import SkillDiaries from "./pages/SkillDiaries";
 
 export default function App() {
   const sections = useMemo(() => buildSections(), []);
@@ -34,7 +35,6 @@ export default function App() {
   }
 
   function completeAllVisible(routeSectionIds) {
-    // Mark all items in specific section ids complete (used by pages)
     const ids = [];
     for (const secId of routeSectionIds) {
       const sec = sections.find((s) => s.id === secId);
@@ -104,24 +104,30 @@ export default function App() {
         <nav className="nav">
           <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/">
             Home
-            </NavLink>
-            <NavLink
-            className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
-            to="/start/melee"
-          >
+          </NavLink>
+
+          <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/start/melee">
             Melee Start
           </NavLink>
+
           <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/start/ranged">
             Ranged start
           </NavLink>
+
           <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/start/magic">
             Magic start
           </NavLink>
+
           <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/start/moneymaking">
             Moneymaking
           </NavLink>
+
           <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/reference">
             Reference
+          </NavLink>
+
+          <NavLink className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`} to="/skill-diaries">
+            Skill Diaries
           </NavLink>
 
           <div className="nav__spacer" />
@@ -164,6 +170,19 @@ export default function App() {
               path="/reference"
               element={
                 <Reference
+                  sections={sections}
+                  completed={completed}
+                  setCompleted={setCompleted}
+                  query={query}
+                  showCompletedOnly={showCompletedOnly}
+                />
+              }
+            />
+
+            <Route
+              path="/skill-diaries"
+              element={
+                <SkillDiaries
                   sections={sections}
                   completed={completed}
                   setCompleted={setCompleted}

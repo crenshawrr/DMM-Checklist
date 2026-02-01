@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/hiscore.js": {
+      "maxDuration": 10
+    }
+  }
+}
