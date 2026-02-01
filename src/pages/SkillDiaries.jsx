@@ -35,6 +35,7 @@ function getRequirementFromItem(item, fallbackSkillName) {
     primarySkill: item.skill || fallbackSkillName,
     primaryLevel: null,
     others: {},
+    quests: item.quests || null,
   };
 
   if (item.level != null && String(item.level).trim() !== "") {
@@ -80,7 +81,9 @@ function decorateSectionForPlayer(section, levels) {
 
     if (!levels) return it;
 
-    if (verdict.ok) return { ...it, text: `✅ ${it.text}` };
+    if (verdict.ok) {
+      return { ...it, text: `✅ ${it.text}` };
+    }
 
     const miss = verdict.missing.length ? ` — need: ${verdict.missing.join(", ")}` : "";
     return { ...it, text: `🔒 ${it.text}${miss}` };
@@ -108,7 +111,6 @@ export default function SkillDiaries({ sections, completed, setCompleted, query,
   // Stat lookup
   const [playerName, setPlayerName] = useState("");
   const [hiscoreType, setHiscoreType] = useState("STANDARD");
-  const [tournamentA, setTournamentA] = useState("13"); // ✅ default to a=13
   const [lookupStatus, setLookupStatus] = useState({ state: "idle", error: "" });
   const [levels, setLevels] = useState(null);
 
@@ -150,11 +152,7 @@ export default function SkillDiaries({ sections, completed, setCompleted, query,
   async function doLookup() {
     setLookupStatus({ state: "loading", error: "" });
     try {
-      const opts =
-        hiscoreType === "DEADMAN_TOURNAMENT" && tournamentA.trim()
-          ? { a: tournamentA.trim() }
-          : {};
-      const lv = await fetchOsrsLevels(playerName, hiscoreType, opts);
+      const lv = await fetchOsrsLevels(playerName, hiscoreType);
       setLevels(lv);
       setLookupStatus({ state: "done", error: "" });
     } catch (e) {
@@ -209,17 +207,6 @@ export default function SkillDiaries({ sections, completed, setCompleted, query,
             ))}
           </select>
 
-          {hiscoreType === "DEADMAN_TOURNAMENT" && (
-            <input
-              className="search"
-              style={{ maxWidth: 120 }}
-              value={tournamentA}
-              onChange={(e) => setTournamentA(e.target.value)}
-              placeholder="a=13"
-              title="Tournament parameter (a=...)"
-            />
-          )}
-
           <input
             className="search"
             style={{ maxWidth: 320 }}
@@ -236,8 +223,7 @@ export default function SkillDiaries({ sections, completed, setCompleted, query,
             <span style={{ opacity: 0.9 }}>❌ {lookupStatus.error}</span>
           ) : lookupStatus.state === "done" ? (
             <span style={{ opacity: 0.9 }}>
-              ✅ Loaded: {playerName.trim()} ({typeLabel}
-              {hiscoreType === "DEADMAN_TOURNAMENT" ? `, a=${tournamentA.trim() || "?"}` : ""})
+              ✅ Loaded: {playerName.trim()} ({typeLabel})
             </span>
           ) : (
             <span style={{ opacity: 0.7 }}>Tip: stats enable ✅/🔒 highlighting</span>

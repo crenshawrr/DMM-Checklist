@@ -1,6 +1,10 @@
 // src/utils/osrsHiscores.js
+// Fetch + parse OSRS hiscores "lite" CSV into a { skillName: level } map.
+// Uses Vercel proxy: /api/hiscore?player=...&type=...
+
 const HISCORE_PROXY_BASE = "https://dmm-checklist.vercel.app";
 
+// Order for OSRS index_lite (first line is "Overall", then 23 skills)
 const SKILL_ORDER = [
   "Overall",
   "Attack",
@@ -33,8 +37,7 @@ export const HISCORE_TYPES = [
   { key: "IRONMAN", label: "Ironman" },
   { key: "HARDCORE_IRONMAN", label: "Hardcore Ironman" },
   { key: "ULTIMATE_IRONMAN", label: "Ultimate Ironman" },
-  { key: "DEADMAN", label: "Deadman (main)" },
-  { key: "DEADMAN_TOURNAMENT", label: "Deadman (tournament)" },
+  { key: "DEADMAN", label: "Deadman" },
   { key: "SEASONAL", label: "Seasonal" },
 ];
 
@@ -44,25 +47,17 @@ function normalizeLevel(n) {
   return n;
 }
 
-export async function fetchOsrsLevels(playerName, hiscoreType = "STANDARD", opts = {}) {
+export async function fetchOsrsLevels(playerName, hiscoreType = "STANDARD") {
   const name = (playerName || "").trim();
   if (!name) throw new Error("Enter a player name.");
 
   const type = (hiscoreType || "STANDARD").trim().toUpperCase();
 
-  const params = new URLSearchParams();
-  params.set("player", name);
-  params.set("type", type);
+  const url =
+    `${HISCORE_PROXY_BASE}/api/hiscore?player=${encodeURIComponent(name)}` +
+    `&type=${encodeURIComponent(type)}`;
 
-  if (opts.a != null && String(opts.a).trim() !== "") params.set("a", String(opts.a).trim());
-
-  const url = `${HISCORE_PROXY_BASE}/api/hiscore?${params.toString()}`;
-
-  const res = await fetch(url, {
-    // ✅ This avoids caching without adding custom headers (no preflight required)
-    cache: "no-store",
-  });
-
+  const res = await fetch(url);
   if (!res.ok) {
     const msg = await safeText(res);
     throw new Error(`Hiscores lookup failed (${res.status}). ${msg ? msg.slice(0, 160) : ""}`);
@@ -97,6 +92,7 @@ export function parseOsrsIndexLite(csvText) {
     const levelRaw = Number(parts[1]);
     levels[SKILL_ORDER[i]] = normalizeLevel(levelRaw);
   }
+
   return levels;
 }
 
